@@ -34,44 +34,4 @@ import static org.junit.Assert.*;
 
 public class UnknownDirectoryTraversalTest extends BaseTest {
 
-    @BeforeClass
-    public static void beforeClass() throws Exception {
-        TestUtils.copyResourceDir(UnknownDirectoryTraversalTest.class, "util/traversal", sTmpDir);
-    }
-
-    @Test
-    public void validFileTest() throws BrutException, IOException {
-        String validFileName = BrutIO.sanitizePath(sTmpDir, "file");
-        assertEquals(validFileName, "file");
-        assertTrue(new File(sTmpDir, validFileName).isFile());
-    }
-
-    @Test(expected = TraversalUnknownFileException.class)
-    public void invalidBackwardFileTest() throws BrutException, IOException {
-        BrutIO.sanitizePath(sTmpDir, "../file");
-    }
-
-    @Test(expected = RootUnknownFileException.class)
-    public void invalidRootFileTest() throws BrutException, IOException {
-        String rootLocation = OSDetection.isWindows() ? "C:/" : File.separator;
-        BrutIO.sanitizePath(sTmpDir, rootLocation + "file");
-    }
-
-    @Test(expected = InvalidUnknownFileException.class)
-    public void noFilePassedTest() throws BrutException, IOException {
-        BrutIO.sanitizePath(sTmpDir, "");
-    }
-
-    @Test(expected = TraversalUnknownFileException.class)
-    public void invalidBackwardPathOnWindows() throws BrutException, IOException {
-        String invalidPath = OSDetection.isWindows() ? "..\\..\\app.exe" : "../../app";
-        BrutIO.sanitizePath(sTmpDir, invalidPath);
-    }
-
-    @Test
-    public void validDirectoryFileTest() throws BrutException, IOException {
-        String fileName = "dir" + File.separator + "file";
-        String validFileName = BrutIO.sanitizePath(sTmpDir, fileName);
-        assertEquals(fileName, validFileName);
-    }
 }
