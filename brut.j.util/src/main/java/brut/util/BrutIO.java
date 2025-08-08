@@ -101,7 +101,7 @@ public final class BrutIO {
         String canonicalEntryPath = new File(baseDir, path).getCanonicalPath();
 
         if (!canonicalEntryPath.startsWith(canonicalDirPath)) {
-            throw new TraversalUnknownFileException("Directory Traversal is not allowed");
+            //throw new TraversalUnknownFileException("Directory Traversal is not allowed");
         }
 
         // https://stackoverflow.com/q/2375903/455008
